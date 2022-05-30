@@ -1,13 +1,12 @@
-
 #----------------------------------------------------------------------------------------#
-# Create Sentinel tst Environment Policy Set
+# Create Sentinel Azure Policy Set
 #----------------------------------------------------------------------------------------#
 data "tfe_workspace_ids" "azure-workspaces" {
   tag_names    = ["azure"]
   organization = "wibble"
 }
 
-resource "tfe_policy_set" "azure-tst-policies" {
+resource "tfe_policy_set" "azure-policies" {
   name          = "azure-policy-set"
   description   = "Policy Set to Hold for Azure Related Policies"
   organization  = "wibble"
