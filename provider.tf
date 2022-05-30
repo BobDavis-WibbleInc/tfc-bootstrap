@@ -8,4 +8,5 @@ terraform {
 }
 
 provider "tfe" {
+  token = "ot-6172QnkrWpoNQG87"
 }
