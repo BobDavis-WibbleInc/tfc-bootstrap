@@ -2,7 +2,7 @@ terraform {
   backend "remote" {
     hostname     = "app.terraform.io"
     organization = "wibble"
-    token        = "ot-6172QnkrWpoNQG87"
+
     workspaces {
       name = "tfc-bootstrap"
     }
@@ -16,4 +16,5 @@ terraform {
 }
 
 provider "tfe" {
+  token = var.tf_token
 }
