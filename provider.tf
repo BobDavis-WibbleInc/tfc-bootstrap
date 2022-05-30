@@ -4,7 +4,7 @@ terraform {
     organization = "wibble"
     token        = "ot-6172QnkrWpoNQG87"
     workspaces {
-      name = "bootstrap"
+      name = "tfc-bootstrap"
     }
   }
   required_providers {
