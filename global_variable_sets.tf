@@ -5,20 +5,19 @@
 resource "tfe_variable_set" "global_variables" {
   name         = "global_settings"
   description  = "Terraform Workspace Global Variables."
-  organization = "wibble-net-nz"
+  organization = "wibble"
   global       = true
 }
 
-
-resource "tfe_variable" "azure" {
+resource "tfe_variable" "az_vars" {
   key = "az_vars"
   value = replace(jsonencode({
     azure_global = {
-      az_client_secret   = var.az_client_secret
-      az_client_id       = var.az_client_id
-      az_tenant_id       = var.az_tenant_id
-      az_subscription_id = var.az_subscription_id
-      az_display_name    = var.az_display_name
+      client_secret   = var.az_client_secret
+      client_id       = var.az_client_id
+      tenant_id       = var.az_tenant_id
+      subscription_id = var.az_subscription_id
+      display_name    = var.az_display_name
     }
   }), "/(\".*?\"):/", "$1 = ")
   hcl             = true
@@ -28,7 +27,7 @@ resource "tfe_variable" "azure" {
 }
 
 
-resource "tfe_variable" "terraform" {
+resource "tfe_variable" "tf_vars" {
   key = "tf_vars"
   value = replace(jsonencode({
     tf_global = {
