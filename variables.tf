@@ -8,28 +8,28 @@ variable "tf_token" {
   default     = null
 }
 
-# #------------------------------------------------------------------------------#
-# # Git Lab Variables
-# #------------------------------------------------------------------------------#
+#------------------------------------------------------------------------------#
+# Git Lab Variables
+#------------------------------------------------------------------------------#
 
-# variable "git_client_id" {
-#   description = "git client id"
-#   type        = string
-#   default     = null
-# }
+variable "git_client_id" {
+  description = "git client id"
+  type        = string
+  default     = null
+}
 
 
-# variable "git_oauth_secret" {
-#   description = "git oauth secret"
-#   type        = string
-#   default     = null
-# }
+variable "git_client_secret" {
+  description = "git client secret"
+  type        = string
+  default     = null
+}
 
-# variable "git_oauth_token_id" {
-#   description = "git oauth token id"
-#   type        = string
-#   default     = null
-# }
+variable "git_oauth_token_id" {
+  description = "git oauth token id"
+  type        = string
+  default     = null
+}
 
 #------------------------------------------------------------------------------#
 # Azure Account Variables
