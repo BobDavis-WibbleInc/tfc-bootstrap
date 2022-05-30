@@ -12,3 +12,17 @@ variable "test_var" {
   type        = string
   default     = null
 }
+
+
+# #------------------------------------------------------------------------------#
+# # Terraform Organization owners team
+# #------------------------------------------------------------------------------#
+# data "tfe_workspace" "test" {
+#   name         = "tfc-bootstrap"
+#   organization = "wibble"
+# }
+
+# output "test" {
+#   value = data.tfe_workspace.test
+# }
+
