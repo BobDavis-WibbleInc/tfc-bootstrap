@@ -12,7 +12,7 @@ resource "tfe_variable_set" "global_variables" {
 resource "tfe_variable" "az_vars" {
   key = "az_vars"
   value = replace(jsonencode({
-    azure_global = {
+    az_vars = {
       client_secret   = var.az_client_secret
       client_id       = var.az_client_id
       tenant_id       = var.az_tenant_id
@@ -30,7 +30,7 @@ resource "tfe_variable" "az_vars" {
 resource "tfe_variable" "tf_vars" {
   key = "tf_vars"
   value = replace(jsonencode({
-    tf_global = {
+    tf_vars = {
       org                 = "wibble"
       admin_team          = "bob"
       version             = "1.2.1"
