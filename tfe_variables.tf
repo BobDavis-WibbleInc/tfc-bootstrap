@@ -1,4 +1,4 @@
-resource "tfe_variable" "test" {
+resource "tfe_variable" "my_key_name" {
   key          = "my_key_name"
   value        = "my_value_name"
   category     = "terraform"
@@ -7,7 +7,7 @@ resource "tfe_variable" "test" {
 }
 
 
-variable "test" {
+variable "my_key_name" {
   description = "Test Variable"
   type        = string
   default     = null
