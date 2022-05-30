@@ -65,3 +65,16 @@ variable "az_display_name" {
   type        = string
   default     = null
 }
+
+#------------------------------------------------------------------------------#
+# Global Vars
+#------------------------------------------------------------------------------#
+variable "az_vars" {
+  description = "Azure Variables."
+  default     = {}
+}
+
+variable "tf_vars" {
+  description = "Terraform Variables."
+  default     = {}
+}
