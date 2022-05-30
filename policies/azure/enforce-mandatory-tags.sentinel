@@ -108,7 +108,7 @@ resource_types = [
 # "azurerm_application_security_group",
 
 # List of mandatory tags
-mandatory_tags = ["CostCenter", "Environment", "ManagedBy", "Organization", "OrganizationalUnit", "Owner"]
+mandatory_tags = ["ManagedBy"]
 
 # Get all Azure Resources with standard tags
 allAzureResourcesWithStandardTags =
