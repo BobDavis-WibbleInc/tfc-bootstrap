@@ -3,7 +3,7 @@
 #------------------------------------------------------------------------------#
 
 variable "tf_token" {
-  description = "Terraform Token"
+  description = "Terraform api_token"
   type        = string
   default     = null
 }
