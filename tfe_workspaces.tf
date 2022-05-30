@@ -10,9 +10,8 @@ resource "tfe_workspace" "tfc_azure" {
     branch         = "main"
   }
 
-  tag_names = ["Azure"]
+  tag_names = ["azure"]
 }
-
 
 resource "tfe_workspace" "tfc_aws" {
   name               = "tfc-aws"
@@ -26,7 +25,5 @@ resource "tfe_workspace" "tfc_aws" {
     branch         = "main"
   }
 
-  tag_names = ["AWS"]
+  tag_names = ["aws"]
 }
-
-

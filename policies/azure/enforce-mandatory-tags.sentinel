@@ -1,0 +1,158 @@
+# This policy uses the Sentinel tfplan/v2 import to require that
+# specified Azure resources have all mandatory tags
+
+# Import common-functions/tfplan-functions/tfplan-functions.sentinel
+# with alias "plan"
+import "tfplan-functions" as plan
+
+# Import azure-functions/azure-functions.sentinel
+# with alias "azure"
+import "azure-functions" as azure
+
+#------------------------------------------------------------------------------#
+# General tags
+# The following table specifies the General tags that will exist for all 
+# Azure Resource types.
+#------------------------------------------------------------------------------#
+
+# List of Azure resources that are required to have name/value tags.
+resource_types = [
+"azurerm_bastion_host",
+"azurerm_disk_encryption_set",
+"azurerm_dns_a_record",
+"azurerm_dns_aaaa_record",
+"azurerm_dns_caa_record",
+"azurerm_dns_cname_record",
+"azurerm_dns_mx_record",
+"azurerm_dns_ns_record",
+"azurerm_dns_ptr_record",
+"azurerm_dns_srv_record",
+"azurerm_dns_txt_record",
+"azurerm_dns_zone",
+"azurerm_eventhub_namespace",
+"azurerm_express_route_circuit",
+"azurerm_firewall",
+"azurerm_frontdoor",
+"azurerm_frontdoor_firewall_policy",
+"azurerm_iot_security_solution",
+"azurerm_ip_group",
+"azurerm_key_vault",
+"azurerm_key_vault_certificate",
+"azurerm_key_vault_key",
+"azurerm_key_vault_managed_storage_account",
+"azurerm_key_vault_managed_storage_account_sas_token_definition",
+"azurerm_key_vault_secret",
+"azurerm_kubernetes_cluster_node_pool",
+"azurerm_lb",
+"azurerm_linux_virtual_machine",
+"azurerm_local_network_gateway",
+"azurerm_log_analytics_workspace",
+"azurerm_mariadb_server",
+"azurerm_mssql_database",
+"azurerm_mssql_elasticpool",
+"azurerm_mssql_failover_group",
+"azurerm_mysql_flexible_server",
+"azurerm_mssql_job_agent",
+"azurerm_mssql_server",
+"azurerm_mssql_virtual_machine",
+"azurerm_mysql_server",
+"azurerm_nat_gateway",
+"azurerm_network_connection_monitor",
+"azurerm_network_ddos_protection_plan",
+"azurerm_virtual_network_gateway_connection",
+"azurerm_network_interface",
+"azurerm_network_security_group",
+"azurerm_network_watcher",
+"azurerm_network_watcher_flow_log",
+"azurerm_point_to_site_vpn_gateway",
+"azurerm_postgresql_flexible_server",
+"azurerm_postgresql_server",
+"azurerm_private_dns_a_record",
+"azurerm_private_endpoint",
+"azurerm_private_link_service",
+"azurerm_public_ip",
+"azurerm_public_ip_prefix",
+"azurerm_recovery_services_vault",
+"azurerm_redis_cache",
+"azurerm_redis_enterprise_cluster",
+"azurerm_resource_group",
+"azurerm_search_service",
+"azurerm_security_center_automation",
+"azurerm_sql_database",
+"azurerm_sql_elasticpool",
+"azurerm_sql_failover_group",
+"azurerm_sql_managed_instance",
+"azurerm_sql_server",
+"azurerm_storage_account",
+"azurerm_subnet_service_endpoint_storage_policy",
+"azurerm_user_assigned_identity",
+"azurerm_virtual_hub",
+"azurerm_virtual_hub_security_partner_provider",
+"azurerm_virtual_machine",
+"azurerm_virtual_network",
+"azurerm_virtual_network_gateway",
+"azurerm_virtual_wan",
+"azurerm_vpn_gateway",
+"azurerm_vpn_server_configuration",
+"azurerm_vpn_site",
+"azurerm_web_application_firewall_policy",
+"azurerm_windows_virtual_machine",
+]
+
+# # these Resources have issues with creation of tags related to the way  
+# # AKS clusters are managed in Azure, so for now we wont check them for tags
+# "azurerm_route_filter",
+# "azurerm_route_table",
+# # as does the applicaiotn gateway tags
+# "azurerm_application_gateway",
+# "azurerm_application_security_group",
+
+# List of mandatory tags
+mandatory_tags = ["CostCenter", "Environment", "ManagedBy", "Organization", "OrganizationalUnit", "Owner"]
+
+# Get all Azure Resources with standard tags
+allAzureResourcesWithStandardTags =
+                        azure.find_resources_with_standard_tags(resource_types)
+
+# Filter to Azure resources with violations using azurerm_virtual_machine
+# Warnings will be printed for all violations since the last parameter is true
+violatingAzureResources =
+      plan.filter_attribute_not_contains_list(allAzureResourcesWithStandardTags,
+                    "tags", mandatory_tags, true)
+
+has_required_general_tags = rule { length(violatingAzureResources["messages"]) is 0 }
+
+
+
+#------------------------------------------------------------------------------#
+# Additional tags
+# Table lists Additional tags for more advanced resource classification and 
+# tags that are relevant to specific resource types.
+#------------------------------------------------------------------------------#
+
+# List of Azure resources that are required to have name/value tags.
+add_resource_types = [
+  "azurerm_virtual_machine",
+  "azurerm_linux_virtual_machine",
+  "azurerm_windows_virtual_machine",
+]
+
+# List of mandatory tags
+add_mandatory_tags = ["CostOwner", "Downsizeable", "Hostname", "ImageSource", "OSFamily", "Schedule"]
+
+# Get all Azure Resources with standard tags
+allAzureResourcesWithResourceDependentMandatoryTags =
+                        azure.find_resources_with_standard_tags(add_resource_types)
+
+# Filter to Azure resources with violations using azurerm_virtual_machine
+# Warnings will be printed for all violations since the last parameter is true
+violatingAzureResourceDependentMandatoryResources =
+      plan.filter_attribute_not_contains_list(allAzureResourcesWithResourceDependentMandatoryTags,
+                    "tags", add_mandatory_tags, true)
+
+has_required_resource_dependent_mandatory_tags = rule { length(violatingAzureResourceDependentMandatoryResources["messages"]) is 0 }
+
+# Main rule
+main = rule {
+  has_required_general_tags and has_required_resource_dependent_mandatory_tags
+}
