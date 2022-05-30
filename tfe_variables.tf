@@ -1,13 +1,13 @@
-resource "tfe_variable" "my_key_name" {
-  key          = "my_key_name"
-  value        = "my_value_name"
+resource "tfe_variable" "test_var" {
+  key          = "test_var"
+  value        = "wibble"
   category     = "terraform"
   workspace_id = "ws-jNrXz6mbTuJQcySa"
   description  = "a useful description"
 }
 
 
-variable "my_key_name" {
+variable "test_var" {
   description = "Test Variable"
   type        = string
   default     = null
