@@ -66,6 +66,12 @@ variable "az_display_name" {
   default     = null
 }
 
+variable "az_devops_personal_token" {
+  description = "Azure Devops Personal Token"
+  type        = string
+  default     = null
+}
+
 #------------------------------------------------------------------------------#
 # Global Vars
 #------------------------------------------------------------------------------#

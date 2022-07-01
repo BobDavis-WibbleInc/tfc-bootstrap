@@ -12,11 +12,12 @@ resource "tfe_variable_set" "global_variables" {
 resource "tfe_variable" "az_vars" {
   key = "az_vars"
   value = replace(jsonencode({
-    client_secret   = var.az_client_secret
-    client_id       = var.az_client_id
-    tenant_id       = var.az_tenant_id
-    subscription_id = var.az_subscription_id
-    display_name    = var.az_display_name
+    client_secret         = var.az_client_secret
+    client_id             = var.az_client_id
+    tenant_id             = var.az_tenant_id
+    subscription_id       = var.az_subscription_id
+    display_name          = var.az_display_name
+    devops_personal_token = var.az_devops_personal_token
   }), "/(\".*?\"):/", "$1 = ")
   hcl             = true
   sensitive       = true
