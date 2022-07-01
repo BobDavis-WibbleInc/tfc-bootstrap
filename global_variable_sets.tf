@@ -36,9 +36,10 @@ resource "tfe_variable" "tf_vars" {
     execution_mode      = "remote"
     global_remote_state = true
     vcs_repo            = true
+    tf_toke             = var.tf_token
   }), "/(\".*?\"):/", "$1 = ")
   hcl             = true
-  sensitive       = false
+  sensitive       = true
   category        = "terraform"
   variable_set_id = tfe_variable_set.global_variables.id
 }
