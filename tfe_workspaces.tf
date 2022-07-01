@@ -40,5 +40,5 @@ resource "tfe_workspace" "tfc_devops" {
     oauth_token_id = "ot-6172QnkrWpoNQG87"
     branch         = "main"
   }
-  tag_names = ["azure devops"]
+  tag_names = ["azure", "devops"]
 }
