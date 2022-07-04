@@ -36,7 +36,7 @@ resource "tfe_variable" "tf_vars" {
     execution_mode      = "remote"
     global_remote_state = true
     vcs_repo            = true
-    tf_toke             = var.tf_token
+    tf_token            = var.tf_token
   }), "/(\".*?\"):/", "$1 = ")
   hcl             = true
   sensitive       = true
