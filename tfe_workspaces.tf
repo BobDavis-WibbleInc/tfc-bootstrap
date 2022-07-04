@@ -29,16 +29,16 @@ resource "tfe_workspace" "tfc_azure" {
 # }
 
 
-# resource "tfe_workspace" "tfc_devops" {
-#   name               = "tfc-devops"
-#   organization       = "wibble"
-#   allow_destroy_plan = true
-#   auto_apply         = true
+resource "tfe_workspace" "tfc_devops" {
+  name               = "tfc-devops"
+  organization       = "wibble"
+  allow_destroy_plan = true
+  auto_apply         = true
 
-#   vcs_repo {
-#     identifier     = "BobDavis-WibbleInc/tfc-devops"
-#     oauth_token_id = "ot-6172QnkrWpoNQG87"
-#     branch         = "main"
-#   }
-#   tag_names = ["azure", "devops"]
-# }
+  vcs_repo {
+    identifier     = "BobDavis-WibbleInc/tfc-devops"
+    oauth_token_id = "ot-6172QnkrWpoNQG87"
+    branch         = "main"
+  }
+  tag_names = ["azure", "devops"]
+}
