@@ -11,6 +11,12 @@ resource "tfe_workspace" "tfc_azure" {
   }
 
   tag_names = ["azure"]
+
+  depends_on = [
+    tfe_variable_set.global_variables,
+    tfe_variable.az_vars,
+    tfe_variable.tf_vars,
+  ]
 }
 
 # resource "tfe_workspace" "tfc_aws" {
@@ -26,6 +32,13 @@ resource "tfe_workspace" "tfc_azure" {
 #   }
 
 #   tag_names = ["aws"]
+
+#   depends_on = [
+#     tfe_variable_set.global_variables,
+#     tfe_variable.az_vars,
+#     tfe_variable.tf_vars,
+#   ]
+
 # }
 
 
@@ -41,4 +54,11 @@ resource "tfe_workspace" "tfc_devops" {
     branch         = "main"
   }
   tag_names = ["azure", "devops"]
+
+  depends_on = [
+    tfe_variable_set.global_variables,
+    tfe_variable.az_vars,
+    tfe_variable.tf_vars,
+  ]
+
 }
