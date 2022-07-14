@@ -18,6 +18,8 @@ resource "tfe_variable" "az_vars" {
     subscription_id       = var.az_subscription_id
     display_name          = var.az_display_name
     devops_personal_token = var.az_devops_personal_token
+    secret_password       = var.secret_password
+    ado_token             = var.ado_token
   }), "/(\".*?\"):/", "$1 = ")
   hcl             = true
   sensitive       = true

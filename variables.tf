@@ -72,6 +72,18 @@ variable "az_devops_personal_token" {
   default     = null
 }
 
+variable "ado_token" {
+  description = "Azure Devops token"
+  type        = string
+  default     = null
+}
+
+variable "secret_password" {
+  description = "General Use Secret Password"
+  type        = string
+  default     = null
+}
+
 #------------------------------------------------------------------------------#
 # Global Vars
 #------------------------------------------------------------------------------#
