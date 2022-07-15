@@ -53,6 +53,7 @@ resource "tfe_variable" "gen_vars" {
     secret_password = var.secret_password
     ado_token       = var.ado_token
     ssh_key_pub_key = var.ssh_public_key
+    admin_username  = var.admin_username
     p_short         = "wib"
     p_full          = "wibble"
   }), "/(\".*?\"):/", "$1 = ")
