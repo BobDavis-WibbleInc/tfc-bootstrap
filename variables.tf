@@ -72,14 +72,14 @@ variable "az_devops_personal_token" {
   default     = null
 }
 
-variable "ado_token" {
-  description = "Azure Devops token"
+variable "az_devops_url" {
+  description = "Azure Devops URL"
   type        = string
   default     = null
 }
 
-variable "secret_password" {
-  description = "General Use Secret Password"
+variable "ado_token" {
+  description = "Azure Devops token"
   type        = string
   default     = null
 }
@@ -95,4 +95,19 @@ variable "az_vars" {
 variable "tf_vars" {
   description = "Terraform Variables."
   default     = {}
+}
+
+#-----------------------------------------------------------------------------#
+# Generic System Vars
+#-----------------------------------------------------------------------------#
+
+variable "ssh_public_key" {
+  description = "ssh public key from workspace"
+  default     = {}
+}
+
+variable "secret_password" {
+  description = "General Use Secret Password"
+  type        = string
+  default     = null
 }

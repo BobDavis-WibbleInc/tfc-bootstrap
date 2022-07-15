@@ -18,8 +18,9 @@ resource "tfe_variable" "az_vars" {
     subscription_id       = var.az_subscription_id
     display_name          = var.az_display_name
     devops_personal_token = var.az_devops_personal_token
+    devops_url            = var.az_devops_url
     secret_password       = var.secret_password
-    ado_token             = var.ado_token
+
   }), "/(\".*?\"):/", "$1 = ")
   hcl             = true
   sensitive       = true
@@ -39,6 +40,21 @@ resource "tfe_variable" "tf_vars" {
     global_remote_state = true
     vcs_repo            = true
     tf_token            = var.tf_token
+  }), "/(\".*?\"):/", "$1 = ")
+  hcl             = true
+  sensitive       = true
+  category        = "terraform"
+  variable_set_id = tfe_variable_set.global_variables.id
+}
+
+resource "tfe_variable" "gen_vars" {
+  key = "gen_vars"
+  value = replace(jsonencode({
+    secret_password = var.secret_password
+    ado_token       = var.ado_token
+    ssh_key_pub_key = var.ssh_public_key
+    p_short         = "wib"
+    p_full          = "wibble"
   }), "/(\".*?\"):/", "$1 = ")
   hcl             = true
   sensitive       = true
