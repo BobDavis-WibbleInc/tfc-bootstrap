@@ -31,6 +31,12 @@ variable "git_oauth_token_id" {
   default     = null
 }
 
+variable "git_vcs_repo_id" {
+  description = "git vcs repo id"
+  type        = string
+  default     = null
+}
+
 #------------------------------------------------------------------------------#
 # Azure Account Variables
 #------------------------------------------------------------------------------#

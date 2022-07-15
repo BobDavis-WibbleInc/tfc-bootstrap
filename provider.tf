@@ -2,7 +2,7 @@
 terraform {
   backend "remote" {
     hostname     = "app.terraform.io"
-    organization = "wibble"
+    organization = "wibble" # Variable not allowed here 
     workspaces {
       name = "tfc-bootstrap"
     }
@@ -16,6 +16,5 @@ terraform {
 }
 
 provider "tfe" {
-  # Configuration options
   token = var.tf_token
 }
