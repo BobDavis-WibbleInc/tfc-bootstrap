@@ -49,7 +49,7 @@ resource "tfe_variable" "gen_vars" {
   value = replace(jsonencode({
     secret_password = var.secret_password
     ado_token       = var.ado_token
-    ssh_key_pub_key = var.ssh_public_key
+    ssh_public_key  = var.ssh_public_key
     admin_username  = var.admin_username
     prefix          = var.prefix
     project         = var.project
