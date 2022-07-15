@@ -19,8 +19,6 @@ resource "tfe_variable" "az_vars" {
     display_name          = var.az_display_name
     devops_personal_token = var.az_devops_personal_token
     devops_url            = var.az_devops_url
-    secret_password       = var.secret_password
-
   }), "/(\".*?\"):/", "$1 = ")
   hcl             = true
   sensitive       = true
@@ -28,12 +26,11 @@ resource "tfe_variable" "az_vars" {
   variable_set_id = tfe_variable_set.global_variables.id
 }
 
-
 resource "tfe_variable" "tf_vars" {
   key = "tf_vars"
   value = replace(jsonencode({
-    org                 = "wibble"
-    admin_team          = "bob"
+    org                 = var.project
+    admin_team          = var.admin_username
     version             = "1.2.1"
     auto_apply          = true
     execution_mode      = "remote"
@@ -54,8 +51,8 @@ resource "tfe_variable" "gen_vars" {
     ado_token       = var.ado_token
     ssh_key_pub_key = var.ssh_public_key
     admin_username  = var.admin_username
-    p_short         = "wib"
-    p_full          = "wibble"
+    prefix          = var.prefix
+    project         = var.project
   }), "/(\".*?\"):/", "$1 = ")
   hcl             = true
   sensitive       = true

@@ -97,6 +97,11 @@ variable "tf_vars" {
   default     = {}
 }
 
+variable "gen_vars" {
+  description = "General Variables."
+  default     = {}
+}
+
 #-----------------------------------------------------------------------------#
 # Generic System Vars
 #-----------------------------------------------------------------------------#
@@ -108,6 +113,24 @@ variable "ssh_public_key" {
 
 variable "secret_password" {
   description = "General Use Secret Password"
+  type        = string
+  default     = null
+}
+
+variable "admin_username" {
+  description = "General Use Admin Username"
+  type        = string
+  default     = null
+}
+
+variable "prefix" {
+  description = "General Use prefix - 3 letters"
+  type        = string
+  default     = null
+}
+
+variable "project" {
+  description = "General Use project name"
   type        = string
   default     = null
 }
