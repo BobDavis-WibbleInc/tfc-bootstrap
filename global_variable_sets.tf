@@ -5,7 +5,7 @@
 resource "tfe_variable_set" "global_variables" {
   name         = "global_settings"
   description  = "Terraform Workspace Global Variables."
-  organization = "wibble"
+  organization = var.project
   global       = true
 }
 
@@ -17,6 +17,8 @@ resource "tfe_variable" "az_vars" {
     tenant_id             = var.az_tenant_id
     subscription_id       = var.az_subscription_id
     display_name          = var.az_display_name
+    primary_location      = var.az_primary_location
+    secondary_location    = var.az_secondary_location
     devops_personal_token = var.az_devops_personal_token
     devops_url            = var.az_devops_url
   }), "/(\".*?\"):/", "$1 = ")

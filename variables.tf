@@ -66,6 +66,18 @@ variable "az_display_name" {
   default     = null
 }
 
+variable "az_primary_location" {
+  description = "Azure Subscription Primary Location"
+  type        = string
+  default     = null
+}
+
+variable "az_secondary_location" {
+  description = "Azure Subscription Secondary Location"
+  type        = string
+  default     = null
+}
+
 variable "az_devops_personal_token" {
   description = "Azure Devops Personal Token"
   type        = string
