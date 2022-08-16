@@ -56,9 +56,9 @@ resource "tfe_variable_set" "az_vars" {
 
 resource "tfe_workspace_variable_set" "azure_vars" {
   variable_set_id = tfe_variable_set.az_vars.id
-  workspace_id = [
+  workspace_ids = [
     tfe_workspace.tfc_azure.id,
-    tfe_workspace.tfc_devops.id
+    tfe_workspace.tfc_devops.id,
   ]
 }
 
