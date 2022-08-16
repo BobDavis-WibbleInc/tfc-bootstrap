@@ -9,25 +9,6 @@ resource "tfe_variable_set" "global_variables" {
   global       = true
 }
 
-resource "tfe_variable" "az_vars" {
-  key = "az_vars"
-  value = replace(jsonencode({
-    client_secret         = var.az_client_secret
-    client_id             = var.az_client_id
-    tenant_id             = var.az_tenant_id
-    subscription_id       = var.az_subscription_id
-    display_name          = var.az_display_name
-    primary_location      = var.az_primary_location
-    secondary_location    = var.az_secondary_location
-    devops_personal_token = var.az_devops_personal_token
-    devops_url            = var.az_devops_url
-  }), "/(\".*?\"):/", "$1 = ")
-  hcl             = true
-  sensitive       = true
-  category        = "terraform"
-  variable_set_id = tfe_variable_set.global_variables.id
-}
-
 resource "tfe_variable" "tf_vars" {
   key = "tf_vars"
   value = replace(jsonencode({
@@ -60,4 +41,39 @@ resource "tfe_variable" "gen_vars" {
   sensitive       = true
   category        = "terraform"
   variable_set_id = tfe_variable_set.global_variables.id
+}
+
+
+#------------------------------------------------------------------------------#
+# Azure variable Set - deployed from this workspace to all Terraform Workspace
+#------------------------------------------------------------------------------#
+
+resource "tfe_variable_set" "az_vars" {
+  name         = "Azure global_settings"
+  description  = "Terraform Workspace Azure Variables."
+  organization = var.project
+}
+
+resource "tfe_workspace_variable_set" "azure_vars" {
+  variable_set_id = tfe_variable_set.az_vars.id
+  workspace_id    = tfe_workspace.tfc_azure.id
+}
+
+resource "tfe_variable" "az_vars" {
+  key = "az_vars"
+  value = replace(jsonencode({
+    client_secret         = var.az_client_secret
+    client_id             = var.az_client_id
+    tenant_id             = var.az_tenant_id
+    subscription_id       = var.az_subscription_id
+    display_name          = var.az_display_name
+    primary_location      = var.az_primary_location
+    secondary_location    = var.az_secondary_location
+    devops_personal_token = var.az_devops_personal_token
+    devops_url            = var.az_devops_url
+  }), "/(\".*?\"):/", "$1 = ")
+  hcl             = true
+  sensitive       = true
+  category        = "terraform"
+  variable_set_id = tfe_variable_set.az_vars.id
 }
